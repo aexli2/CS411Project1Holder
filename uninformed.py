@@ -47,7 +47,7 @@ def ucs(graph, start, goal):# Uniform Cost Search
     while queue:#Continues till the queue is empty
         queue.sort(key=lambda x: x[0])#Sorts upon path cost which is stored in the first stored value in the tuple at index [0]
         currentCost, currentLocation, path = queue.pop(0)#Cost is recorded inside of the queue which is important for tracking what goes first which is what the sort is for
-        
+        break
 
 
     return None,0,[]
