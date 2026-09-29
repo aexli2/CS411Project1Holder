@@ -94,6 +94,7 @@
             color: #ffffff;
             border-color: #2563eb;
             flex: 1;
+
         }
 
         .btn-secondary {
@@ -343,7 +344,7 @@
                 return;
             }
 
-            try {
+            try {   
                 const res = await fetch('/api/search', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
