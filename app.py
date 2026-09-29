@@ -45,7 +45,7 @@ def search():
     Search endpoint placeholder for deployment testing.
     """
     
-    graph = load_map_data().get("graph",{})#Load data from JSON file and atatch it to graph
+    graph = load_map_data()#Load data from JSON file and atatch it to graph
 
 
 
