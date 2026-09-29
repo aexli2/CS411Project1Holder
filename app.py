@@ -6,7 +6,7 @@ from informed import astar,greedy
 
 app = Flask(__name__)
 
-MAP_DATA_FILE = "map_data.json"
+MAP_DATA_FILE = "map_data.json"#JSON File containing locations and edges
 
 
 def load_map_data():
@@ -45,7 +45,7 @@ def search():
     Search endpoint placeholder for deployment testing.
     """
     
-    graph = load_map_data()#Load data from JSON file and atatch it to graph
+    graph=load_map_data().get_map()#Grab Map Locations and Graph Connections from map_data.json
 
 
 
