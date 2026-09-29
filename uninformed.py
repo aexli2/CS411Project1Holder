@@ -9,7 +9,7 @@ def bfs(graph, start, goal):#Breadth First Search
     while queue:#Continues till the queue is empty
         currentLocation,path=queue.pop(0)#Grabs the first location in the queue and add it to the path
 
-        if currentLocation==goal:#If the Current Location is the goal, iterate through path the grabs the cost
+        if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
             for i in range(len(path)-1):
                 traversalCost+=graph[path[i]][path[i+1]]
 
@@ -47,7 +47,23 @@ def ucs(graph, start, goal):# Uniform Cost Search
     while queue:#Continues till the queue is empty
         queue.sort(key=lambda x: x[0])#Sorts upon path cost which is stored in the first stored value in the tuple at index [0]
         currentCost, currentLocation, path = queue.pop(0)#Cost is recorded inside of the queue which is important for tracking what goes first which is what the sort is for
-        break
+
+        if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
+            for i in range(len(path)-1):
+                traversalCost+=graph[path[i]][path[i+1]]
+
+            return path,traversalCost,expanded_nodes
+
+
+        for neighborLocation in graph.get(currentLocation,{}):#Browse the neighboring locations of the current Location
+            if neighborLocation not in visited:#If that location is ye tto be recorded inside of Visisted
+
+                visited.add(neighborLocation)
+                expanded_nodes.append(neighborLocation)
+                
+                newCost=currentCost+graph[currentLocation][neighborLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
+                queue.append((newCost,neighborLocation,path+[neighborLocation]))
+
 
 
     return None,0,[]

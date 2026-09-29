@@ -45,7 +45,7 @@ def search():
     Search endpoint placeholder for deployment testing.
     """
     
-    graph=load_map_data().get("graph", {})
+    graph=load_map_data().get("graph", {})#Retrieve the graph from mapdata  
 
 
 
