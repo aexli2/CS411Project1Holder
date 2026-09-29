@@ -1,6 +1,8 @@
 import os
 import json
 from flask import Flask, render_template, jsonify, request
+from uninformed import dfs,bfs,ucs,ids
+from informed import astar,greedy
 
 app = Flask(__name__)
 
@@ -42,17 +44,43 @@ def search():
     """
     Search endpoint placeholder for deployment testing.
     """
+    
+    graph = load_map_data().get("graph",{})#Load data from JSON file and atatch it to graph
+
+
+
+    #Prebuilt
     payload = request.get_json() or {}
     start = payload.get("start", "")
     goal = payload.get("goal", "")
     algorithm = payload.get("algorithm", "")
 
+
+    #If list of algorithims
+    if algorithm=="bfs":
+        path,cost,expanded_nodes = bfs(graph,start,goal)
+    elif algorithm=="dfs":
+        path,cost,expanded_nodes = dfs(graph,start,goal)
+    elif algorithm=="ucs":
+        path,cost,expanded_nodes = ucs(graph,start,goal)
+    elif algorithm=="ids":
+        path,cost,expanded_nodes = ids(graph,start,goal)
+    elif algorithm=="greedy":
+        path,cost,expanded_nodes = greedy(graph,start,goal)
+    elif algorithm=="astar":
+        path,cost,expanded_nodes = astar(graph,start,goal)
+    else:
+        path=None
+        cost=0
+        expanded_nodes=0
+
+
     return jsonify({
         "status": "ready",
         "message": f"Deployment server active. Request received for algorithm '{algorithm}' from '{start}' to '{goal}'.",
-        "path": [],
-        "cost": 0,
-        "nodes_expanded": 0
+        "path": path,
+        "cost": cost,
+        "nodes_expanded": expanded_nodes
     })
 
 

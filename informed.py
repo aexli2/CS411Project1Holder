@@ -1,7 +1,7 @@
 
-def GreedyBestFirstSearch():
-    return None
+def greedy(graph, start, goal):
+    return None, 0, 0
 
-def ASharpSearch():
-    return None
+def astar(graph, start, goal):
+    return None, 0, 0
 
