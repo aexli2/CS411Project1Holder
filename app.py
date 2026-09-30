@@ -45,7 +45,8 @@ def search():
     Search endpoint placeholder for deployment testing.
     """
     
-    graph=load_map_data().get("graph", {})#Retrieve the graph from mapdata  
+    graph=load_map_data().get("graph", {})#Retrieve the graph from mapdata
+    locationData=load_map_data().get("locations", {})#Retrieve the locations from mapdata
 
 
 
@@ -66,9 +67,9 @@ def search():
     elif algorithm=="ids":
         path,cost,expanded_nodes = ids(graph,start,goal)
     elif algorithm=="greedy":
-        path,cost,expanded_nodes = greedy(graph,start,goal)
+        path,cost,expanded_nodes = greedy(graph,locationData,start,goal)
     elif algorithm=="astar":
-        path,cost,expanded_nodes = astar(graph,start,goal)
+        path,cost,expanded_nodes = astar(graph,locationData,start,goal)
     else:
         path=None
         cost=0
