@@ -3,26 +3,26 @@ def bfs(graph, start, goal):#Breadth First Search
 
     expanded_nodes=[]
     visited = set()
-    traversalCost=0
-    queue = [(start,[start])]
+    
+    queue = [0,(start,[start])]
 
     while queue:#Continues till the queue is empty
 
-        currentLocation,path=queue.pop(0)#Grabs the first location in the queue and add it to the path
+        pathCost,currentLocation,path=queue.pop(0)#Grabs the first location in the queue and add it to the path
         expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
-            for i in range(len(path)-1):
-                traversalCost+=graph[path[i]][path[i+1]]
+            
 
-            return path,traversalCost,expanded_nodes
+            return path,pathCost,expanded_nodes
 
         
         for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x]):#Sorts neighbor Locations to have the first one be the shallowest
             if neighborLocation not in visited:
                 visited.add(neighborLocation)
-             
-                queue.append((neighborLocation,path+[neighborLocation]))
+
+                newPathCost=pathCost+graph[currentLocation][neighborLocation]
+                queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
 
 
     return None,0,[]
