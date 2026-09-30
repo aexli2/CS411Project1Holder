@@ -39,7 +39,7 @@ def dfs(graph, start, goal):#Depth First Search
         return ([start,goal],0,1)
 
     while farthestDepth==False:#Continues till we reach the farthest depth
-        queue.sort(key=lambda x: x[0],reverse=True)#Sorts upon path cost which is stored in the first stored value in the tuple at index [0], Integral for UCS search to work properly
+        queue.sort(key=lambda x: x[0],reverse=True)#Sorts so that the first grabbed path is going to be the farthest
         farthestDepth=True
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
         visited.add(currentLocation)
@@ -57,7 +57,7 @@ def dfs(graph, start, goal):#Depth First Search
         if(farthestDepth==True):
             queue.append((pathCost,currentLocation,path))
 
-    return (queue[len(queue)-1][2], len(queue),0)
+    return (queue[0][2], len(queue),0)
 
 
     
