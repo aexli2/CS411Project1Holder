@@ -35,8 +35,6 @@ def dfs(graph, start, goal):#Depth First Search
     lastdepth=0
     depth=0
 
-    listofPaths=[]
-
     while queue:#Continues till the queue is empty
         currentCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
         expanded_nodes.append(currentLocation)
@@ -60,14 +58,29 @@ def dfs(graph, start, goal):#Depth First Search
             while queue:
                 sortedQueue=sorted(queue,key=lambda x:x[0],reverse=True)#Sorts the list to be in reverse order so that we start at the deepest depth path first
                 currentCost,currentLocation,path=sortedQueue.pop()#Grabs the last location in the
+                if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
+                                        for i in range(len(path)-1):
+                                            
+                                            traversalCost+=graph[path[i]][path[i+1]]
+                            
+                                        return path,traversalCost,len(path)
+                lastLocation=path.pop()#Erases the currentLocation from the path so we can go to the 2nd to last location in the path
+                while path:
+                    currentLocation=path.pop()#Grabs the last location in the path
+                    if currentLocation==goal:#If the this is the goal, iterate through path and grabs the cost
+                        for i in range(len(path)-1):
+                                
+                            traversalCost+=graph[path[i]][path[i+1]]
+                        return path,traversalCost,len(path)
+
+                    
+
+
+                    
+
                 
 
-                if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
-                    for i in range(len(path)-1):
-                        
-                        traversalCost+=graph[path[i]][path[i+1]]
-        
-                    return path,traversalCost,len(path)
+                    
 
 
         lastdepth=depth#Adjusts the depth to match for the next iteration of the search
