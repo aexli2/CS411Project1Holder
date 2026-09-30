@@ -20,7 +20,7 @@ def greedy(graph, locationData, start, goal):#Greedy Best First Search
         if CurrentLocation==goal:
             for i in range(len(path)-1):
                 traversalCost+=graph[path[i]][path[i+1]]
-                return path,traversalCost,expanded_nodes
+            return path,traversalCost,expanded_nodes
 
         for neighborLocation in graph.get(CurrentLocation,{}):
             if neighborLocation not in visited:
@@ -54,19 +54,19 @@ def astar(graph, locationData, start, goal):#A* Search
         if CurrentLocation==goal:
             for i in range(len(path)-1):
                 traversalCost+=graph[path[i]][path[i+1]]
-                return path,traversalCost,expanded_nodes
+            return path,traversalCost,expanded_nodes
     
-            for neighborLocation in graph.get(CurrentLocation,{}):
-                if neighborLocation not in visited:
-    
-                    visited.add(neighborLocation)#Adding Stuff to lists
-                    expanded_nodes.append(neighborLocation)
-    
-                    neighborCords=(locationData.get(neighborLocation,None)["lat"],locationData.get(neighborLocation,None)["lon"])
-                    distanceToGoal=data_fetcher.haversine_distance(neighborCords,goalCords)
-                    newPathCost=PathCost+graph[CurrentLocation][neighborLocation]
+        for neighborLocation in graph.get(CurrentLocation,{}):
+            if neighborLocation not in visited:
 
-                    queue.append((distanceToGoal,newPathCost,neighborLocation,path+[neighborLocation]))#Add the distance to the next city when appending queue a new city
+                visited.add(neighborLocation)#Adding Stuff to lists
+                expanded_nodes.append(neighborLocation)
+
+                neighborCords=(locationData.get(neighborLocation,None)["lat"],locationData.get(neighborLocation,None)["lon"])
+                distanceToGoal=data_fetcher.haversine_distance(neighborCords,goalCords)
+                newPathCost=PathCost+graph[CurrentLocation][neighborLocation]
+
+                queue.append((distanceToGoal,newPathCost,neighborLocation,path+[neighborLocation]))#Add the distance to the next city when appending queue a new city
 
 
 
