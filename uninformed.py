@@ -70,7 +70,7 @@ def dfs(graph, start, goal):#Depth First Search
 
         newPathCost= pathCost - graph[currentLocation][neighborLocation]
         path=path[:-1]
-        queue.append(queue)
+        queue.append(newPathCost,path[-1],path)
 
 
 
