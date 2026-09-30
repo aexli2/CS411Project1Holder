@@ -64,7 +64,7 @@ def dfs(graph, start, goal):#Depth First Search
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted 
                 visited.add(neighborLocation)
 
-                newPathCost=patchCost+graph[currentLocation][neighborLocation]
+                newPathCost=pathCost+graph[currentLocation][neighborLocation]
 
                 queue.append(newPathCost,neighborLocation,path+[neighborLocation])
 
