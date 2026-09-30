@@ -12,8 +12,7 @@ def bfs(graph, start, goal):#Breadth First Search
         expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
-            
-
+    
             return path,pathCost,expanded_nodes
 
         
@@ -30,7 +29,6 @@ def bfs(graph, start, goal):#Breadth First Search
 def dfs(graph, start, goal):#Depth First Search
 
     expanded_nodes= []
-    traversalCost=0
     visited=set()
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
     farthestDepth=False
@@ -38,6 +36,41 @@ def dfs(graph, start, goal):#Depth First Search
     if(start==goal):
         return ([start,goal],0,1)
 
+
+    while queue:
+        
+        queue.sort(key=lambda x: x[0],reverse=True)
+        pathCost,currentLocation,path= queue.pop(0)
+
+        
+
+        if(currentLocation in visited):
+            continue
+
+        expanded_nodes.append(currentLocation)
+
+        visited.add(currentLocation)
+
+        #print(path)
+        #print(pathCost)
+        #print(expanded_nodes)
+
+        if currentLocation == goal:
+            
+            return path,pathCost,expanded_nodes
+
+        for neighborLocation in graph.get(currentLocation,{}):#Sorts based upon the farthest depth
+            #print(neighborLocation)
+            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted 
+                visited.add(neighborLocation)
+
+                newPathCost=patchCost+graph[currentLocation][neighborLocation]
+
+                queue.append(newPathCost,neighborLocation,path+[neighborLocation])
+
+    return None, 0, []
+
+""""
     while farthestDepth==False:#Continues till we reach the farthest depth
         queue.sort(key=lambda x: x[0],reverse=True)#Sorts so that the first grabbed path is going to be the farthest
         farthestDepth=True
@@ -65,14 +98,18 @@ def dfs(graph, start, goal):#Depth First Search
         if currentLocation==goal:
             return path,pathCost,expanded_nodes
 
-        
-        newPathCost= pathCost - graph[path[:-2]][currentLocation]
+        print(currentLocation)
+        print(path)
+        newPathCost= pathCost - graph[path[-2]][currentLocation]
         path=path[:-1]
         queue.append((newPathCost,path[-1],path))
 
+    
+
+        """
 
 
-    return None, 0, []
+   
 
 def ucs(graph, start, goal):# Uniform Cost Search
 
@@ -91,15 +128,13 @@ def ucs(graph, start, goal):# Uniform Cost Search
             return path,currentCost,expanded_nodes
 
 
-        for neighborLocation in graph.get(currentLocation,{}):#Browse the neighboring locations of the current Location
+        for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x]):#Browse the neighboring locations of the current Location and sort them by shortest distance
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
 
                 visited.add(neighborLocation)
 
                 newCost=currentCost+graph[currentLocation][neighborLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
                 queue.append((newCost,neighborLocation,path+[neighborLocation]))
-
-
 
     return None,0,[]
 
@@ -119,8 +154,6 @@ def ids(graph, start, goal):# Iterative Depth Search
         expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
-  
-
             return path,pathCost,expanded_nodes
 
         if len(path)<=locationDepth:#will continue to search for goal if the path is less than or equal to the current depth, if not it will continue to the next iteration of the search
@@ -137,6 +170,4 @@ def ids(graph, start, goal):# Iterative Depth Search
             
             locationDepth+=1#Preparing for the next iteration
 
-        
-    
     return None,0,[]
