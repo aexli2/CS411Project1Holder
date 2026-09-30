@@ -33,27 +33,49 @@ def dfs(graph, start, goal):#Depth First Search
     traversalCost=0
     visited=set()
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
-    while queue:#Continues till the queue is empty
-        queue=sorted(queue,key= lambda x:queue[x][0], reverse=True)#Goes to the farthest node
+    farthestDepth=False
 
+    if(start==goal):
+        return ([start,goal],0,1)
+
+    while farthestDepth==False:#Continues till we reach the farthest depth
+        farthestDepth=True
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
-
         visited.add(currentLocation)
-        expanded_nodes.append(currentLocation)
-
-        if currentLocation==goal:
-            
-
-            return path,pathCost,expanded_nodes
 
         for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x], reverse=True):#Sorts based upon the farthest depth
-            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted         
+            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted 
+
+                farthestDepth=False
                 visited.add(neighborLocation)
-                
-        
+
                 newPathCost= pathCost + graph[currentLocation][neighborLocation]
 
                 queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
+
+        if(farthestDepth==True):
+            queue.append(pathCost,currentLocation,path)
+
+
+    
+
+    while queue:
+        queue=sorted(queue, key=lambda x: queue[x][0],reverse=True)#Sorts the queue so that the we are at the deepest depth city/location
+        pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
+        expanded_nodes.append(currentLocation)
+
+        if currentLocation==goal:
+            return path,pathCost,expanded_nodes
+
+
+        newPathCost= pathCost - graph[currentLocation][neighborLocation]
+        path=path[:-1]
+        queue.append(queue)
+
+
+
+
+        
     
         
     return None,0,[]
