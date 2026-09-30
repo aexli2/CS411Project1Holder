@@ -59,8 +59,8 @@ def dfs(graph, start, goal):#Depth First Search
 
 
     while queue:
-        sortedQueue=sorted(queue,key=lambda x:x[0],reverse=True)#Sorts the list to be in reverse order so that we start at the deepest depth path first
-        currentCost,currentLocation,path=sortedQueue.pop()#Grabs the last location in the
+        queue=sorted(queue,key=lambda x:x[0],reverse=True)#Sorts the list to be in reverse order so that we start at the deepest depth path first
+        currentCost,currentLocation,path=queue.pop()#Grabs the last location in the
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
                                 for i in range(len(path)-1):
@@ -68,15 +68,11 @@ def dfs(graph, start, goal):#Depth First Search
                                     traversalCost+=graph[path[i]][path[i+1]]
                     
                                 return path,traversalCost,len(path)
-        if len(path)>1:
-            lastLocation=path.pop()#Erases the currentLocation from the path so we can go to the 2nd to last location in the path
-            while path:
-                currentLocation=path.pop()#Grabs the last location in the path
-                if currentLocation==goal:#If the this is the goal, iterate through path and grabs the cost
-                    for i in range(len(path)-1):
-                            
-                        traversalCost+=graph[path[i]][path[i+1]]
-                    return path,traversalCost,len(path)
+
+        currentCost= graph[path[-2]][currentLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
+        path=path[:-1]
+        queue.append((currentCost,path[-1],path))#Adds the previous location to the queue to continue searching for the goal
+
 
 
                     
