@@ -7,6 +7,7 @@ def bfs(graph, start, goal):#Breadth First Search
     queue = [(start,[start])]
 
     while queue:#Continues till the queue is empty
+
         currentLocation,path=queue.pop(0)#Grabs the first location in the queue and add it to the path
         expanded_nodes.append(currentLocation)
 
@@ -17,7 +18,7 @@ def bfs(graph, start, goal):#Breadth First Search
             return path,traversalCost,expanded_nodes
 
         
-        for neighborLocation in graph.get(currentLocation,{}):
+        for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x]):#Sorts neighbor Locations to have the first one be the shallowest
             if neighborLocation not in visited:
                 visited.add(neighborLocation)
              
@@ -33,7 +34,7 @@ def dfs(graph, start, goal):#Depth First Search
     visited=set()
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
     while queue:#Continues till the queue is empty
-        queue=sorted(queue,key= lambda x:queue[x][0], reverse=True)
+        queue=sorted(queue,key= lambda x:queue[x][0], reverse=True)#Goes to the farthest node
 
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
 
@@ -95,7 +96,7 @@ def ids(graph, start, goal):# Iterative Depth Search
     locationDepth=0#Tracks depth for each iteration of the search
 
     while queue:#Continues till the queue is empty
-        queue=sorted(queue,key= lambda x:queue[x][0], reverse=True)
+        queue=sorted(queue,key= lambda x:queue[x][0], reverse=True)#Sorts by using the 
 
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the qeue and add it to the path
         visited.add(start)
