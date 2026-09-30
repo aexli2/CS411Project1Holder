@@ -35,8 +35,7 @@ def dfs(graph, start, goal):#Depth First Search
     while queue:#Continues till the queue is empty
         currentCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
 
-        if currentLocation in visited:
-            continue
+      
 
         visited.add(currentLocation)
         expanded_nodes.append(currentLocation)
