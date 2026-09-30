@@ -54,9 +54,9 @@ def dfs(graph, start, goal):#Depth First Search
                 queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
 
         if(farthestDepth==True):
-            queue.append(pathCost,currentLocation,path)
+            queue.append((pathCost,currentLocation,path))
 
-    return queue[0][2], len(queue),0
+    return (queue[0][2], len(queue),0)
 
 
     
@@ -72,7 +72,7 @@ def dfs(graph, start, goal):#Depth First Search
         
         newPathCost= pathCost - graph[currentLocation][neighborLocation]
         path=path[:-1]
-        queue.append(newPathCost,path[-1],path)
+        queue.append((newPathCost,path[-1],path))
 
 
 
