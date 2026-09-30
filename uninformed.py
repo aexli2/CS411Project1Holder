@@ -64,10 +64,10 @@ def dfs(graph, start, goal):#Depth First Search
 
                 if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
                     for i in range(len(path)-1):
-                        expanded_nodes.append(path[i])
+                        
                         traversalCost+=graph[path[i]][path[i+1]]
         
-                    return path,traversalCost,expanded_nodes
+                    return path,traversalCost,len(path)
 
 
         lastdepth=depth#Adjusts the depth to match for the next iteration of the search
