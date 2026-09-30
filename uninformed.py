@@ -64,14 +64,15 @@ def dfs(graph, start, goal):#Depth First Search
                                             traversalCost+=graph[path[i]][path[i+1]]
                             
                                         return path,traversalCost,len(path)
-                lastLocation=path.pop()#Erases the currentLocation from the path so we can go to the 2nd to last location in the path
-                while path:
-                    currentLocation=path.pop()#Grabs the last location in the path
-                    if currentLocation==goal:#If the this is the goal, iterate through path and grabs the cost
-                        for i in range(len(path)-1):
-                                
-                            traversalCost+=graph[path[i]][path[i+1]]
-                        return path,traversalCost,len(path)
+                if len(path)>1:
+                    lastLocation=path.pop()#Erases the currentLocation from the path so we can go to the 2nd to last location in the path
+                    while path:
+                        currentLocation=path.pop()#Grabs the last location in the path
+                        if currentLocation==goal:#If the this is the goal, iterate through path and grabs the cost
+                            for i in range(len(path)-1):
+                                    
+                                traversalCost+=graph[path[i]][path[i+1]]
+                            return path,traversalCost,len(path)
 
                     
 
