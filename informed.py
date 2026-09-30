@@ -8,9 +8,9 @@ def greedy(graph, locationData, start, goal):#Greedy Best First Search
     traversalCost=0
     visited=set()
 
-    goalCords=(locationData.get(goal,None)[0][1],locationData.get(goal,None)[1][1])#We will be using the latitude and longitude of the cities as a heuristic to determine which city is closest to the goal
+    goalCords=(locationData.get(goal,None)["lat"],locationData.get(goal,None)["lon"])#We will be using the latitude and longitude of the cities as a heuristic to determine which city is closest to the goal
     #goalCords now reformed as a tuple of (lat,lon)
-    queue=[(data_fetcher.haversine_distance((locationData.get(start,None)[0][1], locationData.get(start,None)[1][1]), goalCords), start, [start])]
+    queue=[(data_fetcher.haversine_distance((locationData.get(start,None)["lat"], locationData.get(start,None)["lon"]), goalCords), start, [start])]
 
     while queue:#Continues till the queue is empty
         queue.sort(key=lambda x:x[0])#Puts the closest city as the next city to be explored without thinking of edge cost
@@ -28,7 +28,7 @@ def greedy(graph, locationData, start, goal):#Greedy Best First Search
                 visited.add(neighborLocation)#Adding Stuff to lists
                 expanded_nodes.append(neighborLocation)
 
-                neighborCords=(locationData.get(neighborLocation,None)[0][1],locationData.get(neighborLocation,None)[1][1])
+                neighborCords=(locationData.get(neighborLocation,None)["lat"],locationData.get(neighborLocation,None)["lon"])
                 queue.append((data_fetcher.haversine_distance(neighborCords,goalCords),neighborLocation,path+[neighborLocation]))#Add the distance to the next city when appending queue a new city
 
     return None, 0, []
@@ -39,9 +39,9 @@ def astar(graph, locationData, start, goal):#A* Search
     traversalCost=0
     visited=set()
 
-    goalCords=(locationData.get(goal,None)[0][1],locationData.get(goal,None)[1][1])
+    goalCords=(locationData.get(goal,None)["lat"],locationData.get(goal,None)["lon"])
 
-    queue=[(data_fetcher.haversine_distance((locationData.get(start,None)[0][1], locationData.get(start,None)[1][1]), goalCords), 0, start, [start])]
+    queue=[(data_fetcher.haversine_distance((locationData.get(start,None)["lat"], locationData.get(start,None)["lon"]), goalCords), 0, start, [start])]
             #(Distance to Goal, PathCost, CurrentLocation,Path)=tuple - All of these values describe the above array of tuples
 
     while queue:#Continue till the queue is empty
@@ -62,7 +62,7 @@ def astar(graph, locationData, start, goal):#A* Search
                     visited.add(neighborLocation)#Adding Stuff to lists
                     expanded_nodes.append(neighborLocation)
     
-                    neighborCords=(locationData.get(neighborLocation,None)[0][1],locationData.get(neighborLocation,None)[1][1])
+                    neighborCords=(locationData.get(neighborLocation,None)["lat"],locationData.get(neighborLocation,None)["lon"])
                     distanceToGoal=data_fetcher.haversine_distance(neighborCords,goalCords)
                     newPathCost=PathCost+graph[CurrentLocation][neighborLocation]
 
