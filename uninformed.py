@@ -32,26 +32,44 @@ def dfs(graph, start, goal):#Depth First Search
     traversalCost=0
     visited=set()
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
+    lastdepth=0
+    depth=0
 
     while queue:#Continues till the queue is empty
         currentCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
         expanded_nodes.append(currentLocation)
 
-        if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
-            for i in range(len(path)-1):
-                traversalCost+=graph[path[i]][path[i+1]]
-
-            return path,traversalCost,expanded_nodes
-
+        stayedOnCurrentDepth=True#Tells us we reached as farthest down as we could go
 
         for neighborLocation in graph.get(currentLocation,{}):#Browse the neighboring locations of the current Location
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
+
+                if stayedOnCurrentDepth==True:#Updated Depth telling us we can go farther down from the starting position
+                    depth+=1
+                    stayedOnCurrentDepth=False
 
                 visited.add(neighborLocation)
                 
 
                 newCost=currentCost+graph[currentLocation][neighborLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
                 queue.append((newCost,neighborLocation,path+[neighborLocation]))
+
+        if depth == lastdepth:
+            while queue:
+                sortedQueue=sorted(queue,key=lambda x:x[0],reverse=True)#Sorts the list to be in reverse order so that we start at the deepest depth path first
+                currentCost,currentLocation,path=sortedQueue.pop()#Grabs the last location in the
+                expanded_nodes.append(currentLocation)
+
+                if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
+                    for i in range(len(path)-1):
+                        traversalCost+=graph[path[i]][path[i+1]]
+        
+                    return path,traversalCost,expanded_nodes
+
+
+        lastdepth=depth#Adjusts the depth to match for the next iteration of the search
+        
+
 
     return None,0,[]
 
