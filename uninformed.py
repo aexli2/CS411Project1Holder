@@ -4,7 +4,7 @@ def bfs(graph, start, goal):#Breadth First Search
     expanded_nodes=[]
     visited = set()
     
-    queue = [0,(start,[start])]
+    queue = [(0,start,[start])]
 
     while queue:#Continues till the queue is empty
 
