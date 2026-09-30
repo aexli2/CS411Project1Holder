@@ -44,7 +44,7 @@ def dfs(graph, start, goal):#Depth First Search
         stayedOnCurrentDepth=True#Tells us we reached as farthest down as we could go
 
         for neighborLocation in graph.get(currentLocation,{}):#Browse the neighboring locations of the current Location
-            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
+            if neighborLocation not in path:#If that location is yet to be recorded inside of Visisted
 
                 if stayedOnCurrentDepth==True:#Updated Depth telling us we can go farther down from the starting position
                     depth+=1
@@ -72,8 +72,6 @@ def dfs(graph, start, goal):#Depth First Search
 
         lastdepth=depth#Adjusts the depth to match for the next iteration of the search
         
-
-
     return None,0,[]
 
 def ucs(graph, start, goal):# Uniform Cost Search
