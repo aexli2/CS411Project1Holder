@@ -74,15 +74,11 @@ def dfs(graph, start, goal):#Depth First Search
         path=path[:-1]
         queue.append(newPathCost,path[-1],path)
 
+
+
+    return None, 0, []
+
 """
-
-
-
-
-        
-    
-        
-    return None,0,[]
 
 def ucs(graph, start, goal):# Uniform Cost Search
 
