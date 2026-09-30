@@ -60,6 +60,8 @@ def dfs(graph, start, goal):#Depth First Search
         if depth==lastdepth:
            break
 
+        lastdepth=depth#Adjusts the depth to match for the next iteration of the search
+
 
 
     while queue:
@@ -92,7 +94,7 @@ def dfs(graph, start, goal):#Depth First Search
                     
 
 
-        lastdepth=depth#Adjusts the depth to match for the next iteration of the search
+        
         
     return None,0,[]
 
