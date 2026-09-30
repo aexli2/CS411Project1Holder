@@ -35,6 +35,8 @@ def dfs(graph, start, goal):#Depth First Search
     lastdepth=0
     depth=0
 
+    listofPaths=[]
+
     while queue:#Continues till the queue is empty
         currentCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
         expanded_nodes.append(currentLocation)
@@ -54,14 +56,15 @@ def dfs(graph, start, goal):#Depth First Search
                 newCost=currentCost+graph[currentLocation][neighborLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
                 queue.append((newCost,neighborLocation,path+[neighborLocation]))
 
-        if depth == lastdepth:
+        if depth==lastdepth:
             while queue:
                 sortedQueue=sorted(queue,key=lambda x:x[0],reverse=True)#Sorts the list to be in reverse order so that we start at the deepest depth path first
                 currentCost,currentLocation,path=sortedQueue.pop()#Grabs the last location in the
-                expanded_nodes.append(currentLocation)
+                
 
                 if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
                     for i in range(len(path)-1):
+                        expanded_nodes.append(path[i])
                         traversalCost+=graph[path[i]][path[i+1]]
         
                     return path,traversalCost,expanded_nodes
