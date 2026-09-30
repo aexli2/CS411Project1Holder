@@ -59,7 +59,7 @@ def dfs(graph, start, goal):#Depth First Search
             
             return path,pathCost,expanded_nodes
 
-        for neighborLocation in graph.get(currentLocation,{}):#Sorts based upon the farthest depth
+        for neighborLocation in graph[currentLocation]:#Sorts based upon the farthest depth
             #print(neighborLocation)
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted 
                 visited.add(neighborLocation)
