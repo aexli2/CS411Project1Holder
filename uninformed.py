@@ -39,6 +39,7 @@ def dfs(graph, start, goal):#Depth First Search
         return ([start,goal],0,1)
 
     while farthestDepth==False:#Continues till we reach the farthest depth
+        queue=sorted(queue,key=lambda x: queue[x][0],reverse=True)
         farthestDepth=True
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
         visited.add(currentLocation)
