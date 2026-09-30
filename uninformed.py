@@ -56,9 +56,11 @@ def dfs(graph, start, goal):#Depth First Search
         if(farthestDepth==True):
             queue.append(pathCost,currentLocation,path)
 
+    return queue[0][2], len(queue),0
+
 
     
-
+"""
     while queue:
         queue=sorted(queue, key=lambda x: queue[x][0],reverse=True)#Sorts the queue so that the we are at the deepest depth city/location
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
@@ -67,10 +69,12 @@ def dfs(graph, start, goal):#Depth First Search
         if currentLocation==goal:
             return path,pathCost,expanded_nodes
 
-
+        
         newPathCost= pathCost - graph[currentLocation][neighborLocation]
         path=path[:-1]
         queue.append(newPathCost,path[-1],path)
+
+"""
 
 
 
