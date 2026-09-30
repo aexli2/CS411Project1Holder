@@ -48,7 +48,7 @@ def dfs(graph, start, goal):#Depth First Search
             return path,traversalCost,expanded_nodes
 
 
-        for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][1][x], reverse=True):#Sorts based upon the farthest depth
+        for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x], reverse=True):#Sorts based upon the farthest depth
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted         
 
                 visited.add(neighborLocation)
