@@ -8,6 +8,7 @@ def bfs(graph, start, goal):#Breadth First Search
 
     while queue:#Continues till the queue is empty
         currentLocation,path=queue.pop(0)#Grabs the first location in the queue and add it to the path
+        expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
             for i in range(len(path)-1):
@@ -19,7 +20,7 @@ def bfs(graph, start, goal):#Breadth First Search
         for neighborLocation in graph.get(currentLocation,{}):
             if neighborLocation not in visited:
                 visited.add(neighborLocation)
-                expanded_nodes.append(neighborLocation)
+             
                 queue.append((neighborLocation,path+[neighborLocation]))
 
 
@@ -33,7 +34,8 @@ def dfs(graph, start, goal):#Depth First Search
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
 
     while queue:#Continues till the queue is empty
-        currentCost, currentLocation, path = queue.pop()#Grabs the last location in the queue and add it to the path
+        currentCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
+        expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
             for i in range(len(path)-1):
@@ -46,7 +48,7 @@ def dfs(graph, start, goal):#Depth First Search
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
 
                 visited.add(neighborLocation)
-                expanded_nodes.append(neighborLocation)
+                
 
                 newCost=currentCost+graph[currentLocation][neighborLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
                 queue.append((newCost,neighborLocation,path+[neighborLocation]))
@@ -63,7 +65,8 @@ def ucs(graph, start, goal):# Uniform Cost Search
 
     while queue:#Continues till the queue is empty
         queue.sort(key=lambda x: x[0])#Sorts upon path cost which is stored in the first stored value in the tuple at index [0], Integral for UCS search to work properly
-        currentCost, currentLocation, path = queue.pop(0)#Cost is recorded inside of the queue which is important for tracking what goes first which is what the sort is for
+        currentCost,currentLocation,path=queue.pop(0)#Cost is recorded inside of the queue which is important for tracking what goes first which is what the sort is for
+        expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
             for i in range(len(path)-1):
@@ -76,7 +79,6 @@ def ucs(graph, start, goal):# Uniform Cost Search
             if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
 
                 visited.add(neighborLocation)
-                expanded_nodes.append(neighborLocation)
 
                 newCost=currentCost+graph[currentLocation][neighborLocation]#Updates the cost the path is going to take to reach the next location, which is hopefully going to be the goal
                 queue.append((newCost,neighborLocation,path+[neighborLocation]))
@@ -96,6 +98,7 @@ def ids(graph, start, goal):# Iterative Depth Search
 
     while queue:#Continues till the queue is empty
         currentLocation,path=queue.pop()#Grabs the last location in the qeue and add it to the path
+        expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
             for i in range(len(path)-1):
@@ -108,13 +111,13 @@ def ids(graph, start, goal):# Iterative Depth Search
                 if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
 
                     visited.add(neighborLocation)
-                    expanded_nodes.append(neighborLocation)
+                    
                     queue.append((neighborLocation,path+[neighborLocation]))
 
         if not queue:#If the queue is empty,Reset the stats and increase the depth for the next iteration
             queue=[(start,[start])]
             visited.clear()
-            expanded_nodes=[start]
+            
             locationDepth+=1#Preparing for the next iteration
 
         

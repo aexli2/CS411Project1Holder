@@ -16,6 +16,7 @@ def greedy(graph, locationData, start, goal):#Greedy Best First Search
         queue.sort(key=lambda x:x[0])#Puts the closest city as the next city to be explored without thinking of edge cost
 
         CurrentDistance,CurrentLocation,path=queue.pop(0)
+        expanded_nodes.append(CurrentLocation)
 
         if CurrentLocation==goal:
             for i in range(len(path)-1):
@@ -26,7 +27,7 @@ def greedy(graph, locationData, start, goal):#Greedy Best First Search
             if neighborLocation not in visited:
 
                 visited.add(neighborLocation)#Adding Stuff to lists
-                expanded_nodes.append(neighborLocation)
+  
 
                 neighborCords=(locationData.get(neighborLocation,None)["lat"],locationData.get(neighborLocation,None)["lon"])
                 queue.append((data_fetcher.haversine_distance(neighborCords,goalCords),neighborLocation,path+[neighborLocation]))#Add the distance to the next city when appending queue a new city
@@ -50,6 +51,7 @@ def astar(graph, locationData, start, goal):#A* Search
 
 
         CurrentDistance,PathCost,CurrentLocation,path=queue.pop(0)
+        expanded_nodes.append(CurrentLocation)
 
         if CurrentLocation==goal:
             for i in range(len(path)-1):
@@ -60,7 +62,7 @@ def astar(graph, locationData, start, goal):#A* Search
             if neighborLocation not in visited:
 
                 visited.add(neighborLocation)#Adding Stuff to lists
-                expanded_nodes.append(neighborLocation)
+              
 
                 neighborCords=(locationData.get(neighborLocation,None)["lat"],locationData.get(neighborLocation,None)["lon"])
                 distanceToGoal=data_fetcher.haversine_distance(neighborCords,goalCords)
