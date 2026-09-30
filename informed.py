@@ -4,7 +4,7 @@ import data_fetcher
 
 def greedy(graph, locationData, start, goal):#Greedy Best First Search
 
-    expanded_nodes= [start]
+    expanded_nodes= []
     traversalCost=0
     visited=set()
 
@@ -36,7 +36,7 @@ def greedy(graph, locationData, start, goal):#Greedy Best First Search
 
 def astar(graph, locationData, start, goal):#A* Search
 
-    expanded_nodes= [start]
+    expanded_nodes= []
     traversalCost=0
     visited=set()
 

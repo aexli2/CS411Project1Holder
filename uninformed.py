@@ -1,7 +1,7 @@
 
 def bfs(graph, start, goal):#Breadth First Search
 
-    expanded_nodes=[start]
+    expanded_nodes=[]
     visited = set()
     traversalCost=0
     queue = [(start,[start])]
@@ -28,7 +28,7 @@ def bfs(graph, start, goal):#Breadth First Search
 
 def dfs(graph, start, goal):#Depth First Search
 
-    expanded_nodes= [start]
+    expanded_nodes= []
     traversalCost=0
     visited=set()
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
@@ -58,7 +58,7 @@ def dfs(graph, start, goal):#Depth First Search
 def ucs(graph, start, goal):# Uniform Cost Search
 
 
-    expanded_nodes= [start]
+    expanded_nodes= []
     traversalCost=0
     visited=set()
     queue=[(0,start,[start])]#queue is a list of tuples, each tuple contains the cost, current location, and path taken to reach that location
@@ -89,7 +89,7 @@ def ucs(graph, start, goal):# Uniform Cost Search
 
 def ids(graph, start, goal):# Iterative Depth Search
 
-    expanded_nodes= [start]
+    expanded_nodes= []
     traversalCost=0
     visited=set()
     queue=[(start,[start])]
