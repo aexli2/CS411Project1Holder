@@ -31,7 +31,7 @@ def dfs(graph, start, goal):#Depth First Search
     expanded_nodes= []
     visited=set()
     queue=[(0,start,[start])]#Pretty much ucs without the sorting of the queue, which is what makes it depth first search
-    farthestDepth=False
+    
 
     if(start==goal):
         return ([start,goal],0,1)
@@ -101,22 +101,29 @@ def ids(graph, start, goal):# Iterative Depth Search
 
     locationDepth=0#Tracks depth for each iteration of the search
 
-    while queue:#Continues till the queue is empty
+    #Does the same thing as DFS, but must keep track of the depth of the search
+    #I have to make sure that the search is not going to go deeper than the current depth: what the (if len(path)) section is for
 
-        pathCost,currentLocation,path=queue.pop()#Grabs the last location in the qeue and add it to the path
+    if (start==goal):
+        return ([start,goal],0,1)
+
+
+    while queue:#Continues till the queue is empty
+    
+        pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path which is the deepest depth within the queue
         visited.add(start)
         expanded_nodes.append(currentLocation)
 
         if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
             return path,pathCost,expanded_nodes
 
-        if len(path)<=locationDepth:#will continue to search for goal if the path is less than or equal to the current depth, if not it will continue to the next iteration of the search
+        if len(path)<locationDepth:#Iterates through the neighboring locations of the current location and adds them to the queue if they are not already visited
             for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x], reverse=True):#Browse the neighboring locations of the current Location
                 if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
 
                     visited.add(neighborLocation)
-                    newPathCost= pathCost+ graph[currentLocation][neighborLocation]
-                    queue.append((neighborLocation,path+[neighborLocation]))
+                    newPathCost=pathCost+graph[currentLocation][neighborLocation]
+                    queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
 
         if not queue:#If the queue is empty,Reset the stats and increase the depth for the next iteration
             queue=[(start,[start])]
