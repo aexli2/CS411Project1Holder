@@ -74,7 +74,7 @@ def ucs(graph, start, goal):# Uniform Cost Search
     queue=[(0,start,[start])]#queue is a list of tuples, each tuple contains the cost, current location, and path taken to reach that location
 
     while queue:#Continues till the queue is empty
-        queue.sort(key=lambda x: x[0])#Sorts upon path cost which is stored in the first stored value in the tuple at index [0], Integral for UCS search to work properly
+        queue.sort(key=lambda x: x[0])#Sorts upon path cost which is stored in the first stored value in the tuple at index [0], mimics a priority queue
         currentCost,currentLocation,path=queue.pop(0)#Cost is recorded inside of the queue which is important for tracking what goes first which is what the sort is for
         expanded_nodes.append(currentLocation)
 
@@ -125,10 +125,9 @@ def ids(graph, start, goal):# Iterative Depth Search
                     newPathCost=pathCost+graph[currentLocation][neighborLocation]
                     queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
 
-        if len(path)>=locationDepth:#If the queue is empty,Reset the stats and increase the depth for the next iteration
-            queue=[(start,[start])]
-            visited.clear()
-            
-            locationDepth+=1#Preparing for the next iteration
+        if len(queue)==0:#If the queue is empty then restart
+            locationDepth+=1
+            queue=[(0, start,[start])]
+            visited=set()
 
     return None,0,[]
