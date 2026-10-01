@@ -125,7 +125,7 @@ def ids(graph, start, goal):# Iterative Depth Search
                     newPathCost=pathCost+graph[currentLocation][neighborLocation]
                     queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
 
-        if not queue:#If the queue is empty,Reset the stats and increase the depth for the next iteration
+        if len(path)>=locationDepth:#If the queue is empty,Reset the stats and increase the depth for the next iteration
             queue=[(start,[start])]
             visited.clear()
             
