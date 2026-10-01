@@ -202,7 +202,13 @@ def build_graph():
         "total_cities": len(locations),
         "total_edges": total_edges,
         "locations": locations,
-        "graph": graph
+
+
+        #Sorting by city name
+        "graph": sorted(graph.items(),key=lambda x:x[0])
+
+
+        
     }
 
     with open("map_data.json", "w") as f:

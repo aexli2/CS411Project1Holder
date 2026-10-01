@@ -47,7 +47,7 @@
 
 ## Section 5: Discussion
 - **Which search algorithm is best for this route finding problem?** 
-    [Write your answer here]
+    In my opinion, the best algorithim to use for the route finding problem would be the A Sharp Algorithim. This algorithim uses takes into account the heuristic and cost of each path to try to find the best and closest path before going to the next node. The only problem is that it requires mroe time to visit and inspect each neighboring location from the current location node you are on to verify it is the closest path
 - **Search Efficiency (Nodes expanded/time taken comparison):** [Write your answer here comparing search efficiency in terms of number of nodes visited and runtime across different algorithms]
 - **Link the idea of search algorithm to today Generative AI.** 
     [Write your answer here]
