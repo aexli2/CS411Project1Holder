@@ -36,77 +36,32 @@ def dfs(graph, start, goal):#Depth First Search
     if(start==goal):
         return ([start,goal],0,1)
 
+    #The first pop of the queue should be at the deepest depth
+    #Must populate the queue with the deepest depth first, then pop the next deepest depth and continue on in that fashion
+    while queue:#Continues till the queue is empty
 
-    while queue:
-        
-        queue.sort(key=lambda x: x[0],reverse=True)
-        pathCost,currentLocation,path= queue.pop(0)
-
-        
-
-        if(currentLocation in visited):
-            continue
-
+        pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path which is the deepest depth within the queue
+        visited.add(start)
         expanded_nodes.append(currentLocation)
 
-        visited.add(currentLocation)
-
-        #print(path)
-        #print(pathCost)
-        #print(expanded_nodes)
-
-        if currentLocation == goal:
-            
+        if currentLocation==goal:#If the Current Location is the goal, iterate through path and grabs the cost
+    
             return path,pathCost,expanded_nodes
 
-        for neighborLocation in graph[currentLocation]:#Sorts based upon the farthest depth
-            #print(neighborLocation)
-            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted 
+        for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x], reverse=True):#Browse the neighboring locations of the current Location
+            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted
+
                 visited.add(neighborLocation)
-
                 newPathCost=pathCost+graph[currentLocation][neighborLocation]
+                queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
 
-                queue.append(newPathCost,neighborLocation,path+[neighborLocation])
+
+
+        
+        
 
     return None, 0, []
 
-""""
-    while farthestDepth==False:#Continues till we reach the farthest depth
-        queue.sort(key=lambda x: x[0],reverse=True)#Sorts so that the first grabbed path is going to be the farthest
-        farthestDepth=True
-        pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
-        visited.add(currentLocation)
-
-        for neighborLocation in sorted(graph.get(currentLocation,{}), key=lambda x: graph[currentLocation][x], reverse=True):#Sorts based upon the farthest depth
-            if neighborLocation not in visited:#If that location is yet to be recorded inside of Visisted 
-
-                farthestDepth=False
-                visited.add(neighborLocation)
-
-                newPathCost= pathCost + graph[currentLocation][neighborLocation]
-
-                queue.append((newPathCost,neighborLocation,path+[neighborLocation]))
-
-        if(farthestDepth==True):
-            queue.append((pathCost,currentLocation,path))
-
-    while queue:
-        queue.sort(key=lambda x: x[0],reverse=True)#Sorts the queue so that the we are at the deepest depth city/location
-        pathCost,currentLocation,path=queue.pop()#Grabs the last location in the queue and add it to the path
-        expanded_nodes.append(currentLocation)
-
-        if currentLocation==goal:
-            return path,pathCost,expanded_nodes
-
-        print(currentLocation)
-        print(path)
-        newPathCost= pathCost - graph[path[-2]][currentLocation]
-        path=path[:-1]
-        queue.append((newPathCost,path[-1],path))
-
-    
-
-        """
 
 
    
@@ -147,7 +102,6 @@ def ids(graph, start, goal):# Iterative Depth Search
     locationDepth=0#Tracks depth for each iteration of the search
 
     while queue:#Continues till the queue is empty
-        queue=sorted(queue,key= lambda x:queue[x][0], reverse=True)#Sorts by using the 
 
         pathCost,currentLocation,path=queue.pop()#Grabs the last location in the qeue and add it to the path
         visited.add(start)
