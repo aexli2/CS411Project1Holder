@@ -276,6 +276,8 @@
 
                 const startSelect = document.getElementById('startSelect');
                 const goalSelect = document.getElementById('goalSelect');
+
+                //This is where the cities are sorted 
                 const cities = Object.keys(mapData.locations || {}).sort();
 
                 cities.forEach(city => {
